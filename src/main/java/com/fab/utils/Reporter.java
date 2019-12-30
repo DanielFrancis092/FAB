@@ -1,6 +1,9 @@
 package com.fab.utils;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -22,10 +25,14 @@ public abstract class Reporter extends AbstractTestNGCucumberTests{
 	
 	public String testcaseName, testcaseDec, author, category;
 	public static  String excelFileName;
-	
+	public static String timeStamp;
 	@BeforeSuite
 	public void startReport() {
-		reporter = new ExtentHtmlReporter("./reports/result.html");
+		timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+		System.out.println(timeStamp);
+		String reportPath="./reports/report"+timeStamp;
+		new File(reportPath+"/images").mkdirs();
+		reporter = new ExtentHtmlReporter(reportPath+"/result.html");
 		reporter.setAppendExisting(true); 
 		extent   = new ExtentReports();
 		extent.attachReporter(reporter);
@@ -48,7 +55,7 @@ public abstract class Reporter extends AbstractTestNGCucumberTests{
 			snapNumber = takeSnap();
 			try {
 				img = MediaEntityBuilder.createScreenCaptureFromPath
-						("./../reports/images/"+snapNumber+".jpg").build();
+						("./../reports/report"+timeStamp+"/images/"+snapNumber+".jpg").build();
 			} catch (IOException e) {
 				
 			}
