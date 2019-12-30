@@ -20,7 +20,7 @@ public class Annotations extends SeleniumBase {
   
   @BeforeMethod
   public void beforeMethod() {
-	startApp("firefox", "http://leaftaps.com/opentaps");
+	startApp("chrome", "https://connect.maveric-systems.com/index.php/site/login");
 	
   }
 
